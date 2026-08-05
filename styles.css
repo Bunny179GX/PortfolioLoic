@@ -175,7 +175,7 @@ h2 { font-size: clamp(3.2rem, 7vw, 7rem); }
   .hero-visual { width: min(83%, 410px); margin: 0 auto; }
   .portrait-frame { width: 100%; padding: .55rem; transform: rotate(1deg); }
   .portrait-frame::before { inset: 8% -5% -4% 10%; }
-  .portrait-frame img { height: min(calc(83vw - 1.1rem), 398px); aspect-ratio: 1 / 1; object-position: center 36%; }
+  .portrait-frame img { height: 398px; height: min(calc(83vw - 1.1rem), 398px); aspect-ratio: 1 / 1; object-position: center 36%; }
   .hero-index { display: none; }
   .section-heading-row, .about-layout { grid-template-columns: 1fr; }
   .skills-list li { grid-template-columns: 2rem 1fr; }.skills-list li b { grid-column: 2; }
@@ -192,7 +192,7 @@ h2 { font-size: clamp(3.2rem, 7vw, 7rem); }
   .hero-visual { width: min(88%, 340px); }
   .portrait-frame { width: 100%; padding: .55rem; transform: rotate(1deg); }
   .portrait-frame::before { inset: 8% -5% -4% 10%; }
-  .portrait-frame img { height: min(calc(88vw - 1.1rem), 328px); aspect-ratio: 1; object-position: center 36%; }
+  .portrait-frame img { height: 328px; height: min(calc(88vw - 1.1rem), 328px); aspect-ratio: 1; object-position: center 36%; }
   .hero-actions { align-items: stretch; flex-direction: column; }.button { justify-content: space-between; }
   .orbit-badge { right: -1.5rem; bottom: -1.5rem; width: 5.4rem; height: 5.4rem; }
   .project-cover, .project-card:not(.project-card-wide) .project-cover { min-height: 410px; }
