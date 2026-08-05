@@ -159,8 +159,9 @@ h2 { font-size: clamp(3.2rem, 7vw, 7rem); }
 .video-card strong { font-family: var(--display); font-size: 1.6rem; text-transform: uppercase; }
 .video-card span { color: var(--paper-dim); text-transform: uppercase; letter-spacing: .1em; font-size: .58rem; }
 
-.reveal { opacity: 0; transform: perspective(1000px) rotateY(3deg) translateY(35px); transform-origin: left center; transition: opacity .7s ease, transform .85s cubic-bezier(.15,.75,.2,1); }
+.reveal { opacity: 1; transform: none; }
 .reveal.is-visible { opacity: 1; transform: none; }
+.project-cover img, .gallery-item img { opacity: 1; visibility: visible; }
 :focus-visible { outline: 3px solid var(--cyan); outline-offset: 4px; }
 
 @media (max-width: 800px) {
