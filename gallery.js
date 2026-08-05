@@ -2,7 +2,7 @@ const photoNumbers = [...Array(20)].map((_, index) => index + 1).concat([...Arra
 
 const galleries = {
   photos: photoNumbers.map(number => ({
-    src: `assets/images/photos/photo${number}.jpg`,
+    src: `photos/photo${number}.jpg`,
     alt: `Photographie ${number} — sélection de Loïc Gex`
   })),
   creations: [
@@ -13,15 +13,15 @@ const galleries = {
     ['cyberpunk.jpg', 'Portrait graphique cyberpunk'], ['football.jpg', 'Composition graphique — Football'],
     ['fullmetal.png', 'Création inspirée de Fullmetal Alchemist'], ['jocker.png', 'Création graphique — Joker'],
     ['sans.jpg', 'Composition fantastique'], ['sansfaucheur.jpg', 'Composition — La faucheuse']
-  ].map(([file, alt]) => ({ src: `assets/images/creations/${file}`, alt })),
+  ].map(([file, alt]) => ({ src: `creations/${file}`, alt })),
   communication: [
     ['defibrilateur.jpg', 'Affiche de sensibilisation — Défibrillateur'], ['octobre rose.png', 'Campagne de sensibilisation — Octobre rose'],
     ['pubcrousti1.png', 'Campagne Crousti — visuel 1'], ['pubcrousti2.png', 'Campagne Crousti — visuel 2'],
     ['pubcrousti3.png', 'Campagne Crousti — visuel 3'], ['tique1.png', 'Campagne de prévention contre les tiques — visuel 1'],
     ['tique2.png', 'Campagne de prévention contre les tiques — visuel 2'], ['tique3.png', 'Campagne de prévention contre les tiques — visuel 3']
-  ].map(([file, alt]) => ({ src: `assets/images/communication/${file}`, alt })),
+  ].map(([file, alt]) => ({ src: `communication/${file}`, alt })),
   logos: [...Array(13)].map((_, index) => ({
-    src: `assets/images/logos/logo${index + 1}.png`,
+    src: `logos/logo${index + 1}.png`,
     alt: `Recherche de logo ${index + 1}`
   }))
 };
