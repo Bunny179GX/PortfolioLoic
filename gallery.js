@@ -1,7 +1,22 @@
+const photoTitles = {
+  1: 'Instant suspendu', 2: 'Regard en lumière', 3: 'Éclats de fête', 4: 'Complicité', 5: 'Sourires partagés',
+  6: 'Au cœur de la soirée', 7: 'Souvenir d’anniversaire', 8: 'En pleine action', 9: 'Le geste professionnel', 10: 'Dans les coulisses',
+  11: 'Pluie de confettis', 12: 'Bougies dans la nuit', 13: 'Portrait nocturne', 14: 'L’arrivée du héros', 15: 'La voix de Batman',
+  16: 'Avant le match', 17: 'Le numéro dix', 18: 'Concentration', 19: 'Ligne de jeu', 20: 'Esprit d’équipe', 22: 'Derniers réglages',
+  23: 'Sur le terrain professionnel', 24: 'Portrait métier', 25: 'En situation', 26: 'Le geste précis', 27: 'L’équipe au travail',
+  28: 'Dans l’action', 29: 'Un savoir-faire', 30: 'Temps d’échange', 31: 'Les coulisses du quotidien',
+  32: 'Retour sur le terrain', 33: 'Face au jeu', 34: 'Dernière action', 35: 'Au service', 36: 'L’engagement',
+  37: 'Prêt à recevoir', 38: 'En pleine détente', 39: 'Le duel', 40: 'Au filet', 41: 'Esprit collectif', 42: 'La réception',
+  43: 'Le contre', 44: 'Temps fort', 45: 'La relance', 46: 'Sous pression', 47: 'L’attaque', 48: 'Concentration collective',
+  49: 'Le mouvement', 50: 'Point décisif', 51: 'La passe', 52: 'L’élan', 53: 'Regard sur le ballon', 54: 'En défense',
+  55: 'Équilibre', 56: 'Le rebond', 57: 'Cohésion', 58: 'L’instant du smash', 59: 'Réaction', 60: 'Dernier échange',
+  61: 'Victoire collective', 62: 'Fin de match'
+};
+
 const numberedItems = (folder, numbers, label) => numbers.map(number => ({
   src: `${folder}/${label}${number}.jpg`,
   alt: `${label === 'photo' ? 'Photographie' : 'Visuel'} ${number} — ${folder}`,
-  title: `${label === 'photo' ? 'Photographie' : 'Visuel'} ${String(number).padStart(2, '0')}`
+  title: label === 'photo' ? photoTitles[number] : `Visuel ${String(number).padStart(2, '0')}`
 }));
 
 const fileItems = (folder, entries) => entries.map(([file, alt, title]) => ({
@@ -35,9 +50,14 @@ const galleryGroups = {
       items: numberedItems('photos', [...range(3, 7), 11, 12], 'photo')
     },
     {
+      marker: 'Événement', kicker: 'Animation', title: 'Un héros au cœur de la soirée',
+      description: 'Deux photographies réalisées pendant une animation événementielle, entre apparition du personnage et interaction avec le public.',
+      items: numberedItems('photos', [14, 15], 'photo')
+    },
+    {
       marker: 'Travail', kicker: 'Reportage', title: 'La vie professionnelle en images',
       description: 'Des photographies réalisées dans un cadre professionnel ou lors d’événements liés au travail, pour documenter les personnes et les situations avec naturel.',
-      items: numberedItems('photos', [8, 9, 10, 14, 15, ...range(23, 31)], 'photo')
+      items: numberedItems('photos', [8, 9, 10, ...range(23, 31)], 'photo')
     }
   ],
   creations: [
@@ -167,6 +187,7 @@ if (count) count.textContent = items.length;
 const createGalleryCard = (item, index, group, position) => {
   const card = document.createElement('article');
   card.className = 'showcase-card';
+  if (category === 'creations') card.classList.add('creation-showcase-card');
   const button = document.createElement('button');
   button.className = 'gallery-item js-lightbox';
   button.type = 'button';
@@ -192,7 +213,9 @@ const createGalleryCard = (item, index, group, position) => {
   const title = document.createElement('h3');
   title.textContent = item.title;
   const description = document.createElement('p');
-  description.textContent = `${group.kicker} — ${group.title}`;
+  description.textContent = category === 'creations'
+    ? group.description
+    : `${group.kicker} — ${group.title}`;
   caption.append(marker, title, description);
   card.append(button, caption);
   return card;
