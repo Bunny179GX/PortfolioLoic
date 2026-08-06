@@ -6,6 +6,9 @@ const galleries = {
     alt: `Photographie ${number} — sélection de Loïc Gex`
   })),
   creations: [
+    ['peter-pluie-intense.png', 'Série Peter Parker — version sous une pluie intense'],
+    ['peter-ciel-lumineux.png', 'Série Peter Parker — version au ciel lumineux'],
+    ['peter-version-sombre.png', 'Série Peter Parker — version sombre et cinématographique'],
     ['ammo1.png', 'Composition graphique — Ammo 1'], ['ammo2.png', 'Composition graphique — Ammo 2'],
     ['beateau.png', 'Photomontage — La ville submergée'], ['bonbon.png', 'Création graphique — Bonbon'],
     ['bonbonstade.png', 'Création graphique — Bonbon stade'], ['boodha.jpg', 'Création graphique — Boodha'],
@@ -33,11 +36,14 @@ const count = document.querySelector('#item-count');
 
 if (count) count.textContent = items.length;
 
-items.forEach((item, index) => {
+const featuredCount = category === 'creations' && document.querySelector('.comparison-grid') ? 3 : 0;
+
+items.slice(featuredCount).forEach((item, relativeIndex) => {
+  const index = relativeIndex + featuredCount;
   const button = document.createElement('button');
-  button.className = 'gallery-item reveal';
+  button.className = 'gallery-item reveal js-lightbox';
   button.type = 'button';
-  button.dataset.index = index;
+  button.dataset.galleryIndex = index;
   button.setAttribute('aria-label', `Agrandir : ${item.alt}`);
   const image = document.createElement('img');
   image.src = item.src;
@@ -53,34 +59,69 @@ lightbox.className = 'lightbox';
 lightbox.setAttribute('role', 'dialog');
 lightbox.setAttribute('aria-modal', 'true');
 lightbox.setAttribute('aria-label', 'Aperçu de l’image');
-lightbox.innerHTML = '<button class="lightbox-close" type="button" aria-label="Fermer">×</button><img alt=""><p class="lightbox-caption"></p>';
+lightbox.innerHTML = '<button class="lightbox-close" type="button" aria-label="Fermer">×</button><button class="lightbox-nav lightbox-prev" type="button" aria-label="Image précédente"><span aria-hidden="true">←</span></button><img alt=""><button class="lightbox-nav lightbox-next" type="button" aria-label="Image suivante"><span aria-hidden="true">→</span></button><p class="lightbox-caption" aria-live="polite"></p>';
 document.body.appendChild(lightbox);
 
 let lastTrigger = null;
+let currentIndex = 0;
+
+const renderLightbox = () => {
+  const item = items[currentIndex];
+  const image = lightbox.querySelector('img');
+  image.src = item.src;
+  image.alt = item.alt;
+  lightbox.querySelector('.lightbox-caption').textContent = `${currentIndex + 1} / ${items.length} — ${item.alt}`;
+  const hideNavigation = items.length < 2;
+  lightbox.querySelector('.lightbox-prev').hidden = hideNavigation;
+  lightbox.querySelector('.lightbox-next').hidden = hideNavigation;
+};
+
+const openLightbox = (index, trigger) => {
+  currentIndex = index;
+  lastTrigger = trigger;
+  renderLightbox();
+  lightbox.classList.add('is-open');
+  document.body.style.overflow = 'hidden';
+  lightbox.querySelector('.lightbox-close').focus();
+};
+
+const navigateLightbox = direction => {
+  currentIndex = (currentIndex + direction + items.length) % items.length;
+  renderLightbox();
+};
+
 const closeLightbox = () => {
   lightbox.classList.remove('is-open');
   document.body.style.overflow = '';
   lastTrigger?.focus();
 };
 
-grid?.addEventListener('click', event => {
-  const trigger = event.target.closest('.gallery-item');
+document.addEventListener('click', event => {
+  const trigger = event.target.closest('.js-lightbox');
   if (!trigger) return;
-  lastTrigger = trigger;
-  const item = items[Number(trigger.dataset.index)];
-  lightbox.querySelector('img').src = item.src;
-  lightbox.querySelector('img').alt = item.alt;
-  lightbox.querySelector('.lightbox-caption').textContent = item.alt;
-  lightbox.classList.add('is-open');
-  document.body.style.overflow = 'hidden';
-  lightbox.querySelector('.lightbox-close').focus();
+  openLightbox(Number(trigger.dataset.galleryIndex), trigger);
 });
 
 lightbox.addEventListener('click', event => {
   if (event.target === lightbox || event.target.closest('.lightbox-close')) closeLightbox();
+  if (event.target.closest('.lightbox-prev')) navigateLightbox(-1);
+  if (event.target.closest('.lightbox-next')) navigateLightbox(1);
 });
 document.addEventListener('keydown', event => {
-  if (event.key === 'Escape' && lightbox.classList.contains('is-open')) closeLightbox();
+  if (!lightbox.classList.contains('is-open')) return;
+  if (event.key === 'Escape') closeLightbox();
+  if (event.key === 'ArrowLeft') navigateLightbox(-1);
+  if (event.key === 'ArrowRight') navigateLightbox(1);
 });
+
+let touchStartX = 0;
+lightbox.addEventListener('touchstart', event => {
+  touchStartX = event.changedTouches[0].screenX;
+}, { passive: true });
+lightbox.addEventListener('touchend', event => {
+  const distance = event.changedTouches[0].screenX - touchStartX;
+  if (Math.abs(distance) < 45) return;
+  navigateLightbox(distance > 0 ? -1 : 1);
+}, { passive: true });
 
 requestAnimationFrame(() => document.querySelectorAll('.gallery-item.reveal').forEach(element => observer.observe(element)));
