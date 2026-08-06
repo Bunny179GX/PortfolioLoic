@@ -1,11 +1,13 @@
 const numberedItems = (folder, numbers, label) => numbers.map(number => ({
   src: `${folder}/${label}${number}.jpg`,
-  alt: `${label === 'photo' ? 'Photographie' : 'Visuel'} ${number} — ${folder}`
+  alt: `${label === 'photo' ? 'Photographie' : 'Visuel'} ${number} — ${folder}`,
+  title: `${label === 'photo' ? 'Photographie' : 'Visuel'} ${String(number).padStart(2, '0')}`
 }));
 
-const fileItems = (folder, entries) => entries.map(([file, alt]) => ({
+const fileItems = (folder, entries) => entries.map(([file, alt, title]) => ({
   src: `${folder}/${file}`,
-  alt
+  alt,
+  title: title || alt.split('—')[0].trim()
 }));
 
 const range = (start, end) => Array.from({ length: end - start + 1 }, (_, index) => start + index);
@@ -162,7 +164,9 @@ const count = document.querySelector('#item-count');
 
 if (count) count.textContent = items.length;
 
-const createGalleryButton = (item, index) => {
+const createGalleryCard = (item, index, group, position) => {
+  const card = document.createElement('article');
+  card.className = 'showcase-card';
   const button = document.createElement('button');
   button.className = 'gallery-item js-lightbox';
   button.type = 'button';
@@ -172,9 +176,26 @@ const createGalleryButton = (item, index) => {
   image.src = item.src;
   image.alt = item.alt;
   image.loading = index < 8 ? 'eager' : 'lazy';
-  image.decoding = 'async';
+  image.decoding = index < 6 ? 'sync' : 'async';
   button.appendChild(image);
-  return button;
+
+  const number = document.createElement('span');
+  number.className = 'showcase-number';
+  number.textContent = String(position + 1).padStart(2, '0');
+  button.appendChild(number);
+
+  const caption = document.createElement('div');
+  caption.className = 'showcase-caption';
+  const marker = document.createElement('span');
+  marker.className = 'showcase-label';
+  marker.textContent = group.marker;
+  const title = document.createElement('h3');
+  title.textContent = item.title;
+  const description = document.createElement('p');
+  description.textContent = `${group.kicker} — ${group.title}`;
+  caption.append(marker, title, description);
+  card.append(button, caption);
+  return card;
 };
 
 let nextIndex = featuredItems.length;
@@ -194,8 +215,8 @@ groups.forEach(group => {
 
   const grid = document.createElement('div');
   grid.className = `collection-grid collection-grid-${Math.min(group.items.length, 3)}`;
-  group.items.forEach(item => {
-    grid.appendChild(createGalleryButton(item, nextIndex));
+  group.items.forEach((item, position) => {
+    grid.appendChild(createGalleryCard(item, nextIndex, group, position));
     nextIndex += 1;
   });
 

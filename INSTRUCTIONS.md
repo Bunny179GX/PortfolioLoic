@@ -1,6 +1,6 @@
 # Mise à jour chronologique du portfolio
 
-Cette livraison ajoute la biographie complète, la création Chishiya et le classement chronologique ou thématique de toutes les galeries.
+Cette livraison ajoute la biographie complète, la création Chishiya, le classement chronologique ou thématique des galeries et une carte graphique complète pour chaque image et chaque vidéo.
 
 ## 1. Remplacer le code à la racine
 
