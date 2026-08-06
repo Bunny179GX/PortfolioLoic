@@ -40,6 +40,14 @@ const galleryGroups = {
   ],
   creations: [
     {
+      marker: '2026', kicker: 'Juste avant Peter Parker', title: 'Chopper & Bouddha',
+      description: 'Ces deux créations personnelles ont été réalisées en 2026, peu avant la série Peter Parker. Elles explorent deux univers qui m’inspirent à travers la composition, la couleur et l’illustration numérique.',
+      items: fileItems('creations', [
+        ['chopper.png', 'Création personnelle inspirée de Chopper — 2026'],
+        ['boodha.jpg', 'Exploration graphique autour de Bouddha — 2026']
+      ])
+    },
+    {
       marker: '2025', kicker: 'Création personnelle', title: 'Jackie — hommage à Cyberpunk 2077',
       description: 'Après avoir terminé Cyberpunk 2077, j’ai voulu créer une affiche consacrée à Jackie, un personnage qui m’a profondément touché. Cette composition a été réalisée sur Photoshop en 2025.',
       items: fileItems('creations', [['cyberpunk.jpg', 'Affiche hommage à Jackie dans Cyberpunk 2077 — 2025']])
@@ -84,14 +92,6 @@ const galleryGroups = {
         ['jocker.png', 'Création inspirée du Joker'],
         ['sans.jpg', 'Création inspirée de Sans'],
         ['sansfaucheur.jpg', 'Création inspirée de Sans et de la Faucheuse']
-      ])
-    },
-    {
-      marker: '2021', kicker: 'Explorations personnelles', title: 'Personnages & symboles',
-      description: 'Deux expérimentations personnelles autour de figures fortes, réalisées pour développer ma maîtrise de la composition, de la couleur et de l’illustration numérique.',
-      items: fileItems('creations', [
-        ['chopper.png', 'Création personnelle inspirée de Chopper'],
-        ['boodha.jpg', 'Exploration graphique autour de Bouddha']
       ])
     }
   ],
