@@ -168,6 +168,9 @@ const galleryGroups = {
 };
 
 const featuredCreations = fileItems('creations', [
+  ['spider man de nuit.png', 'Étude Spider-Man — transformation nocturne de la rue'],
+  ['spider man de nuit neige.png', 'Étude Spider-Man — version enneigée avec une foule intégrée'],
+  ['spider man de nuit neige lumi differente.png', 'Étude Spider-Man — version enneigée avec une lumière plus dramatique'],
   ['peter-pluie-intense.png', 'Série Peter Parker — version sous une pluie intense'],
   ['peter-ciel-lumineux.png', 'Série Peter Parker — version au ciel lumineux'],
   ['peter-version-sombre.png', 'Série Peter Parker — version sombre et cinématographique']
