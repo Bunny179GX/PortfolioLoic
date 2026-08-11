@@ -32,14 +32,25 @@ const pageTransition = document.querySelector('.page-transition');
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
 if (pageTransition) {
+  const transitionProjects = [
+    { image: 'photos/photo44.jpg', label: 'Photographie', detail: 'Sport & mouvement' },
+    { image: 'creations/chopper.png', label: 'Créations', detail: 'Manga & composition' },
+    { image: 'videos/animation-basket.gif', label: 'Vidéo', detail: 'Animation & rythme' },
+    { image: 'communication/octobre rose.png', label: 'Communication', detail: 'Campagne & impact' },
+    { image: 'logos/logo5.png', label: 'Logos', detail: 'Identité & symbole', contain: true }
+  ];
+  const turningPages = transitionProjects.map((project, index) => `
+      <span class="turning-sheet" style="--sheet:${index}">
+        <span class="sheet-face sheet-front${project.contain ? ' sheet-contain' : ''}">
+          <img src="${project.image}" alt="">
+          <small class="sheet-label"><span>${project.label}</span><b>${project.detail}</b></small>
+        </span>
+        <span class="sheet-face sheet-back"></span>
+      </span>`).join('');
+
   pageTransition.innerHTML = `
     <div class="page-flurry" aria-hidden="true">
-      <span class="turning-sheet" style="--sheet:0"></span>
-      <span class="turning-sheet" style="--sheet:1"></span>
-      <span class="turning-sheet" style="--sheet:2"></span>
-      <span class="turning-sheet" style="--sheet:3"></span>
-      <span class="turning-sheet" style="--sheet:4"></span>
-      <span class="turning-sheet" style="--sheet:5"></span>
+      ${turningPages}
     </div>
     <div class="opening-book" aria-hidden="true">
       <span class="book-cover"></span>
@@ -70,6 +81,6 @@ document.querySelectorAll('.page-link').forEach(link => {
 
     try { sessionStorage.setItem('portfolio-page-turn', 'reveal'); } catch {}
     pageTransition.classList.add('is-turning');
-    window.setTimeout(() => { window.location.href = link.href; }, 1340);
+    window.setTimeout(() => { window.location.href = link.href; }, 1840);
   });
 });
