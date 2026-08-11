@@ -81,6 +81,6 @@ document.querySelectorAll('.page-link').forEach(link => {
 
     try { sessionStorage.setItem('portfolio-page-turn', 'reveal'); } catch {}
     pageTransition.classList.add('is-turning');
-    window.setTimeout(() => { window.location.href = link.href; }, 1840);
+    window.setTimeout(() => { window.location.href = link.href; }, 2160);
   });
 });
