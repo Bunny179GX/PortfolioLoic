@@ -30,8 +30,16 @@ document.querySelectorAll('.reveal').forEach(element => observer.observe(element
 
 const pageTransition = document.querySelector('.page-transition');
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+const animationStorageKey = 'portfolio-book-seen-v2';
+let bookAlreadySeen = false;
 
-if (pageTransition) {
+try {
+  bookAlreadySeen = sessionStorage.getItem(animationStorageKey) === 'true';
+} catch {
+  // La navigation reste fonctionnelle si le stockage du navigateur est indisponible.
+}
+
+if (pageTransition && !bookAlreadySeen) {
   const transitionLeaves = [
     {
       front: { image: 'photos/photo44.jpg', label: 'Photographie', detail: 'Sport & mouvement' },
@@ -42,7 +50,7 @@ if (pageTransition) {
       back: { image: 'communication/octobre rose.png', label: 'Communication', detail: 'Campagne & impact' }
     },
     {
-      front: { image: 'creations/peter-pluie-intense.png', label: 'Créations', detail: 'Lumière & atmosphère' },
+      front: { image: 'assets/optimized/peter-rain.jpg', label: 'Créations', detail: 'Lumière & atmosphère' },
       back: { image: 'communication/pubcrousti1.png', label: 'Communication', detail: 'Publicité & composition' }
     },
     {
@@ -50,13 +58,13 @@ if (pageTransition) {
       back: { image: 'creations/cyberpunk.jpg', label: 'Créations', detail: 'Univers & émotion' }
     },
     {
-      front: { image: 'creations/spider man de nuit neige lumi differente.png', label: 'Créations', detail: 'Montage & lumière' },
+      front: { image: 'assets/optimized/spider-light.jpg', label: 'Créations', detail: 'Montage & lumière' },
       back: { image: 'photos/photo37.jpg', label: 'Photographie', detail: 'Volley & énergie' }
     }
   ];
   const projectFace = (project, side) => `
         <span class="sheet-face sheet-${side}${project.contain ? ' sheet-contain' : ''}">
-          <img src="${project.image}" alt="">
+          <img src="${project.image}" alt="" decoding="async">
           <small class="sheet-label"><span>${project.label}</span><b>${project.detail}</b></small>
         </span>`;
   const turningPages = transitionLeaves.map((leaf, index) => `
@@ -66,27 +74,51 @@ if (pageTransition) {
       </span>`).join('');
 
   pageTransition.innerHTML = `
-    <div class="page-flurry" aria-hidden="true">
-      ${turningPages}
-    </div>`;
+    <div class="page-flurry" aria-hidden="true">${turningPages}</div>
+    <button class="transition-skip" type="button" hidden>Passer l’animation <span aria-hidden="true">→</span></button>`;
 }
 
-try {
-  sessionStorage.removeItem('portfolio-page-turn');
-} catch {
-  // La navigation reste fonctionnelle si le stockage du navigateur est indisponible.
-}
+let navigationTimer;
+let navigationTarget = '';
+const completeNavigation = () => {
+  if (navigationTarget) window.location.href = navigationTarget;
+};
+
+pageTransition?.querySelector('.transition-skip')?.addEventListener('click', () => {
+  window.clearTimeout(navigationTimer);
+  completeNavigation();
+});
 
 document.querySelectorAll('.page-link').forEach(link => {
   link.addEventListener('click', event => {
-    if (event.ctrlKey || event.metaKey || event.shiftKey) return;
+    if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+    if (link.origin !== window.location.origin) return;
     event.preventDefault();
+    if (pageTransition?.classList.contains('is-turning')) return;
+
+    navigationTarget = link.href;
     if (reduceMotion.matches || !pageTransition) {
-      window.location.href = link.href;
+      completeNavigation();
       return;
     }
 
+    const useQuickTransition = bookAlreadySeen || !pageTransition.querySelector('.page-flurry');
     pageTransition.classList.add('is-turning');
-    window.setTimeout(() => { window.location.href = link.href; }, 2350);
+
+    if (useQuickTransition) {
+      pageTransition.classList.add('is-quick');
+      navigationTimer = window.setTimeout(completeNavigation, 380);
+      return;
+    }
+
+    try {
+      sessionStorage.setItem(animationStorageKey, 'true');
+    } catch {
+      // L’animation fonctionne aussi sans stockage de session.
+    }
+    bookAlreadySeen = true;
+    const skipButton = pageTransition.querySelector('.transition-skip');
+    if (skipButton) skipButton.hidden = false;
+    navigationTimer = window.setTimeout(completeNavigation, 2350);
   });
 });

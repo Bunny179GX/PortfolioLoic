@@ -412,3 +412,49 @@ body[data-gallery="logos"] .showcase-card .gallery-item img { padding: .8rem; ba
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
   .reveal { opacity: 1; transform: none; }
 }
+
+/* Finitions 2026 : transition, lisibilité et navigation */
+.page-flurry { width: min(96vw, 154vh); }
+.transition-skip {
+  position: absolute;
+  right: clamp(1rem, 3vw, 2.5rem);
+  bottom: clamp(1rem, 3vw, 2.5rem);
+  z-index: 80;
+  padding: .65rem .9rem;
+  border: 1px solid rgba(9,11,18,.75);
+  color: var(--ink);
+  background: var(--yellow);
+  box-shadow: 4px 4px 0 var(--pink);
+  cursor: pointer;
+  pointer-events: auto;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  font-size: .64rem;
+  font-weight: 900;
+}
+.transition-skip:hover { background: var(--cyan); }
+.page-transition.is-quick { animation: quick-transition-stage .38s ease both; }
+.page-transition.is-quick::before { animation: quick-transition-backdrop .38s ease both; }
+.page-transition.is-quick::after {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  z-index: 10;
+  background: linear-gradient(110deg, var(--yellow) 0 42%, var(--pink) 42% 46%, var(--ink) 46% 100%);
+  animation: quick-transition-sweep .38s cubic-bezier(.55,.02,.23,1) both;
+}
+.page-transition.is-quick .page-flurry,
+.page-transition.is-quick .transition-skip { display: none; }
+.gallery-hint { margin: .35rem 0 0; color: var(--paper-dim); font-size: .68rem; line-height: 1.45; }
+@keyframes quick-transition-stage { 0% { opacity: 0; } 8%,100% { opacity: 1; } }
+@keyframes quick-transition-backdrop { 0% { opacity: 0; } 100% { opacity: 1; } }
+@keyframes quick-transition-sweep { 0% { transform: translateX(105%) skewX(-7deg); } 100% { transform: translateX(-18%) skewX(-7deg); } }
+
+@media (max-width: 800px) {
+  .page-flurry { width: min(146vw, 1160px); }
+}
+
+@media (max-width: 600px) {
+  .page-flurry { width: min(190vw, 860px); }
+  .transition-skip { right: 1rem; bottom: 1.2rem; }
+}

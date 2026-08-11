@@ -15,7 +15,7 @@ const photoTitles = {
 
 const numberedItems = (folder, numbers, label) => numbers.map(number => ({
   src: `${folder}/${label}${number}.jpg`,
-  alt: `${label === 'photo' ? 'Photographie' : 'Visuel'} ${number} — ${folder}`,
+  alt: label === 'photo' ? `Photographie : ${photoTitles[number]}` : `Visuel ${number}`,
   title: label === 'photo' ? photoTitles[number] : `Visuel ${String(number).padStart(2, '0')}`
 }));
 
@@ -71,7 +71,7 @@ const galleryGroups = {
     },
     {
       marker: '2025', kicker: 'Création personnelle', title: 'Jackie — hommage à Cyberpunk 2077',
-      description: 'Après avoir terminé Cyberpunk 2077, j’ai voulu créer une affiche consacrée à Jackie, un personnage qui m’a profondément touché. Cette composition a été réalisée sur Photoshop en 2025.',
+      description: 'Après avoir terminé Cyberpunk 2077, j’ai voulu créer une affiche consacrée à Jackie, un personnage qui m’a profondément touché. Cette composition a été réalisée avec Photoshop en 2025.',
       items: fileItems('creations', [['cyberpunk.jpg', 'Affiche hommage à Jackie dans Cyberpunk 2077 — 2025']])
     },
     {
@@ -101,13 +101,13 @@ const galleryGroups = {
       marker: '2021', kicker: 'Apprentissage Illustrator', title: 'Du bonbon au stade',
       description: 'J’ai d’abord suivi un tutoriel Illustrator pour construire le bonbon, puis j’ai réutilisé cette technique de manière personnelle afin de créer une seconde version inspirée d’un stade de football.',
       items: fileItems('creations', [
-        ['bonbon.png', 'Création vectorielle d’un bonbon réalisée sur Illustrator'],
+        ['bonbon.png', 'Création vectorielle d’un bonbon réalisée avec Illustrator'],
         ['bonbonstade.png', 'Réinterprétation du bonbon dans un stade de football']
       ])
     },
     {
       marker: '2021', kicker: 'Illustrator & pop culture', title: 'Univers qui m’inspirent',
-      description: 'Ces créations inspirées de la pop culture ont été réalisées sur Illustrator il y a cinq ans dans le cadre d’un travail graphique. Elles m’ont permis d’explorer les silhouettes, les couleurs et différents styles visuels.',
+      description: 'Ces créations inspirées de la pop culture ont été réalisées avec Illustrator en 2021, dans le cadre d’un travail graphique. Elles m’ont permis d’explorer les silhouettes, les couleurs et différents styles visuels.',
       items: fileItems('creations', [
         ['fullmetal.png', 'Création inspirée de Fullmetal Alchemist'],
         ['crocodile.png', 'Création inspirée de Crocodile'],
@@ -199,8 +199,8 @@ const createGalleryCard = (item, index, group, position) => {
   const image = document.createElement('img');
   image.src = item.src;
   image.alt = item.alt;
-  image.loading = index < 8 ? 'eager' : 'lazy';
-  image.decoding = index < 6 ? 'sync' : 'async';
+  image.loading = index < featuredItems.length + 2 ? 'eager' : 'lazy';
+  image.decoding = 'async';
   button.appendChild(image);
 
   const number = document.createElement('span');
@@ -268,7 +268,7 @@ const renderLightbox = () => {
   const image = lightbox.querySelector('img');
   image.src = item.src;
   image.alt = item.alt;
-  lightbox.querySelector('.lightbox-caption').textContent = `${currentIndex + 1} / ${items.length} — ${item.alt}`;
+  lightbox.querySelector('.lightbox-caption').textContent = `${currentIndex + 1} / ${items.length} — ${item.title || item.alt}`;
   const hideNavigation = items.length < 2;
   lightbox.querySelector('.lightbox-prev').hidden = hideNavigation;
   lightbox.querySelector('.lightbox-next').hidden = hideNavigation;
@@ -311,6 +311,18 @@ document.addEventListener('keydown', event => {
   if (event.key === 'Escape') closeLightbox();
   if (event.key === 'ArrowLeft') navigateLightbox(-1);
   if (event.key === 'ArrowRight') navigateLightbox(1);
+  if (event.key === 'Tab') {
+    const controls = [...lightbox.querySelectorAll('button:not([hidden])')];
+    const firstControl = controls[0];
+    const lastControl = controls.at(-1);
+    if (event.shiftKey && document.activeElement === firstControl) {
+      event.preventDefault();
+      lastControl.focus();
+    } else if (!event.shiftKey && document.activeElement === lastControl) {
+      event.preventDefault();
+      firstControl.focus();
+    }
+  }
 });
 
 let touchStartX = 0;

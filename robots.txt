@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://bunny179gx.github.io/PortfolioLoic/sitemap.xml
