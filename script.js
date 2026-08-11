@@ -31,6 +31,24 @@ document.querySelectorAll('.reveal').forEach(element => observer.observe(element
 const pageTransition = document.querySelector('.page-transition');
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
+if (pageTransition) {
+  pageTransition.innerHTML = `
+    <div class="page-flurry" aria-hidden="true">
+      <span class="turning-sheet" style="--sheet:0"></span>
+      <span class="turning-sheet" style="--sheet:1"></span>
+      <span class="turning-sheet" style="--sheet:2"></span>
+      <span class="turning-sheet" style="--sheet:3"></span>
+      <span class="turning-sheet" style="--sheet:4"></span>
+      <span class="turning-sheet" style="--sheet:5"></span>
+    </div>
+    <div class="opening-book" aria-hidden="true">
+      <span class="book-cover"></span>
+      <span class="book-page book-page-left"></span>
+      <span class="book-page book-page-right"></span>
+      <span class="book-spine"></span>
+    </div>`;
+}
+
 try {
   if (sessionStorage.getItem('portfolio-page-turn') === 'reveal') {
     sessionStorage.removeItem('portfolio-page-turn');
@@ -52,6 +70,6 @@ document.querySelectorAll('.page-link').forEach(link => {
 
     try { sessionStorage.setItem('portfolio-page-turn', 'reveal'); } catch {}
     pageTransition.classList.add('is-turning');
-    window.setTimeout(() => { window.location.href = link.href; }, 780);
+    window.setTimeout(() => { window.location.href = link.href; }, 1340);
   });
 });
