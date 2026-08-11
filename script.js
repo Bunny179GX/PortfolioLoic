@@ -32,20 +32,37 @@ const pageTransition = document.querySelector('.page-transition');
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
 if (pageTransition) {
-  const transitionProjects = [
-    { image: 'photos/photo44.jpg', label: 'Photographie', detail: 'Sport & mouvement' },
-    { image: 'creations/chopper.png', label: 'Créations', detail: 'Manga & composition' },
-    { image: 'videos/animation-basket.gif', label: 'Vidéo', detail: 'Animation & rythme' },
-    { image: 'communication/octobre rose.png', label: 'Communication', detail: 'Campagne & impact' },
-    { image: 'logos/logo5.png', label: 'Logos', detail: 'Identité & symbole', contain: true }
+  const transitionLeaves = [
+    {
+      front: { image: 'photos/photo44.jpg', label: 'Photographie', detail: 'Sport & mouvement' },
+      back: { image: 'creations/chopper.png', label: 'Créations', detail: 'Manga & composition' }
+    },
+    {
+      front: { image: 'videos/animation-basket.gif', label: 'Vidéo', detail: 'Animation & rythme' },
+      back: { image: 'communication/octobre rose.png', label: 'Communication', detail: 'Campagne & impact' }
+    },
+    {
+      front: { image: 'creations/peter-pluie-intense.png', label: 'Créations', detail: 'Lumière & atmosphère' },
+      back: { image: 'communication/pubcrousti1.png', label: 'Communication', detail: 'Publicité & composition' }
+    },
+    {
+      front: { image: 'photos/photo37.jpg', label: 'Photographie', detail: 'Volley & énergie' },
+      back: { image: 'creations/cyberpunk.jpg', label: 'Créations', detail: 'Univers & émotion' }
+    },
+    {
+      front: { image: 'logos/logo5.png', label: 'Logos', detail: 'Identité & symbole', contain: true },
+      back: { image: 'creations/spider man de nuit neige lumi differente.png', label: 'Créations', detail: 'Montage & lumière' }
+    }
   ];
-  const turningPages = transitionProjects.map((project, index) => `
-      <span class="turning-sheet" style="--sheet:${index}">
-        <span class="sheet-face sheet-front${project.contain ? ' sheet-contain' : ''}">
+  const projectFace = (project, side) => `
+        <span class="sheet-face sheet-${side}${project.contain ? ' sheet-contain' : ''}">
           <img src="${project.image}" alt="">
           <small class="sheet-label"><span>${project.label}</span><b>${project.detail}</b></small>
-        </span>
-        <span class="sheet-face sheet-back"></span>
+        </span>`;
+  const turningPages = transitionLeaves.map((leaf, index) => `
+      <span class="turning-sheet" style="--sheet:${index}">
+        ${projectFace(leaf.front, 'front')}
+        ${projectFace(leaf.back, 'back')}
       </span>`).join('');
 
   pageTransition.innerHTML = `
@@ -81,6 +98,6 @@ document.querySelectorAll('.page-link').forEach(link => {
 
     try { sessionStorage.setItem('portfolio-page-turn', 'reveal'); } catch {}
     pageTransition.classList.add('is-turning');
-    window.setTimeout(() => { window.location.href = link.href; }, 2160);
+    window.setTimeout(() => { window.location.href = link.href; }, 2860);
   });
 });
