@@ -72,11 +72,7 @@ if (pageTransition) {
 }
 
 try {
-  if (sessionStorage.getItem('portfolio-page-turn') === 'reveal') {
-    sessionStorage.removeItem('portfolio-page-turn');
-    pageTransition?.classList.add('is-entering');
-    window.setTimeout(() => pageTransition?.classList.remove('is-entering'), 820);
-  }
+  sessionStorage.removeItem('portfolio-page-turn');
 } catch {
   // La navigation reste fonctionnelle si le stockage du navigateur est indisponible.
 }
@@ -90,8 +86,7 @@ document.querySelectorAll('.page-link').forEach(link => {
       return;
     }
 
-    try { sessionStorage.setItem('portfolio-page-turn', 'reveal'); } catch {}
     pageTransition.classList.add('is-turning');
-    window.setTimeout(() => { window.location.href = link.href; }, 1760);
+    window.setTimeout(() => { window.location.href = link.href; }, 2350);
   });
 });
