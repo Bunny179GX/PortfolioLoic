@@ -28,12 +28,30 @@ const observer = new IntersectionObserver(entries => {
 
 document.querySelectorAll('.reveal').forEach(element => observer.observe(element));
 
+const pageTransition = document.querySelector('.page-transition');
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+try {
+  if (sessionStorage.getItem('portfolio-page-turn') === 'reveal') {
+    sessionStorage.removeItem('portfolio-page-turn');
+    pageTransition?.classList.add('is-entering');
+    window.setTimeout(() => pageTransition?.classList.remove('is-entering'), 820);
+  }
+} catch {
+  // La navigation reste fonctionnelle si le stockage du navigateur est indisponible.
+}
+
 document.querySelectorAll('.page-link').forEach(link => {
   link.addEventListener('click', event => {
     if (event.ctrlKey || event.metaKey || event.shiftKey) return;
     event.preventDefault();
-    const transition = document.querySelector('.page-transition');
-    transition?.classList.add('is-turning');
-    window.setTimeout(() => { window.location.href = link.href; }, 520);
+    if (reduceMotion.matches || !pageTransition) {
+      window.location.href = link.href;
+      return;
+    }
+
+    try { sessionStorage.setItem('portfolio-page-turn', 'reveal'); } catch {}
+    pageTransition.classList.add('is-turning');
+    window.setTimeout(() => { window.location.href = link.href; }, 780);
   });
 });
