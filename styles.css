@@ -134,7 +134,19 @@ h2 { font-size: clamp(3.2rem, 7vw, 7rem); }
 .contact-page { background: #0b0e16; }
 .contact-hero { position: relative; min-height: min(66svh, 760px); padding: 10rem var(--pad) 5rem; display: grid; align-items: end; border-bottom: 1px solid var(--line); overflow: hidden; }
 .contact-hero::before { content: ""; position: absolute; width: 38rem; height: 38rem; right: -10rem; top: -17rem; border: 1px solid rgba(92,225,230,.24); border-radius: 50%; box-shadow: 0 0 120px rgba(92,225,230,.08); }
+.contact-hero::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(90deg, rgba(9,11,18,.96) 0%, rgba(9,11,18,.79) 39%, rgba(9,11,18,.2) 78%, rgba(9,11,18,.52) 100%), linear-gradient(0deg, #0b0e16 0%, rgba(11,14,22,.18) 50%, rgba(11,14,22,.68) 100%); }
 .contact-hero-grid { position: absolute; inset: 0; opacity: .13; background-image: linear-gradient(rgba(92,225,230,.3) 1px, transparent 1px), linear-gradient(90deg, rgba(92,225,230,.3) 1px, transparent 1px); background-size: 68px 68px; mask-image: linear-gradient(to bottom, black, transparent 94%); }
+.museum-wall { position: absolute; inset: 5.8rem 2vw 1.6rem 17%; z-index: 0; perspective: 1200px; pointer-events: none; }
+.museum-frame { position: absolute; margin: 0; padding: clamp(.22rem, .45vw, .5rem); border: 1px solid rgba(241,238,229,.48); background: #d9d4c8; box-shadow: 0 18px 38px rgba(0,0,0,.5), 0 0 0 5px rgba(9,11,18,.65); overflow: hidden; transform-origin: center; }
+.museum-frame::after { content: ""; position: absolute; inset: .35rem; border: 1px solid rgba(247,213,29,.45); box-shadow: inset 0 0 25px rgba(0,0,0,.5); }
+.museum-frame img { width: 100%; height: 100%; object-fit: cover; filter: saturate(.82) contrast(1.08); }
+.museum-frame-spider { width: min(23vw, 330px); aspect-ratio: 3 / 4; right: 1%; top: 5%; transform: rotate(3deg) translateZ(22px); }
+.museum-frame-peter { width: min(18vw, 255px); aspect-ratio: 3 / 4; right: 25%; top: -2%; transform: rotate(-4deg); }
+.museum-frame-photo { width: min(21vw, 300px); aspect-ratio: 4 / 3; right: 46%; top: 8%; transform: rotate(2deg) translateZ(12px); }
+.museum-frame-cyber { width: min(14vw, 200px); aspect-ratio: 2 / 3; right: 15%; bottom: -4%; transform: rotate(-3deg) translateZ(30px); }
+.museum-frame-campaign { width: min(16vw, 225px); aspect-ratio: 4 / 3; right: 38%; bottom: 1%; transform: rotate(4deg); }
+.museum-frame-logo { width: min(12vw, 170px); aspect-ratio: 4 / 3; right: 57%; bottom: 5%; background: #ece8df; transform: rotate(-2deg); }
+.museum-frame-logo img { padding: 10%; object-fit: contain; background: #090b12; }
 .contact-hero-inner { position: relative; z-index: 2; width: min(100%, var(--max)); margin: 0 auto; }
 .contact-hero h1 { font-size: clamp(4.5rem, 12vw, 11rem); }
 .contact-hero-inner > p:last-of-type { max-width: 680px; margin: 1.5rem 0 1.2rem; color: var(--paper-dim); font-size: clamp(1rem, 1.6vw, 1.2rem); }
@@ -297,6 +309,13 @@ body[data-gallery="logos"] .showcase-card .gallery-item img { padding: .8rem; ba
   .site-footer { align-items: flex-start; flex-direction: column; }
   .request-layout { grid-template-columns: 1fr; }
   .contact-details { position: static; }
+  .museum-wall { inset: 5.5rem -2rem 1rem 6%; }
+  .museum-frame-spider { width: 32vw; right: 1%; top: 2%; }
+  .museum-frame-peter { width: 27vw; right: 34%; top: 0; }
+  .museum-frame-photo { width: 31vw; right: 65%; top: 5%; }
+  .museum-frame-cyber { width: 20vw; right: 18%; bottom: 0; }
+  .museum-frame-campaign { width: 25vw; right: 44%; bottom: 2%; }
+  .museum-frame-logo { display: none; }
   .video-grid { grid-template-columns: 1fr; }
   .portfolio-block { grid-template-columns: 1fr; gap: 1.5rem; }
   .portfolio-marker { position: static; }
@@ -320,6 +339,8 @@ body[data-gallery="logos"] .showcase-card .gallery-item img { padding: .8rem; ba
   .hero-actions { align-items: stretch; flex-direction: column; }.button { justify-content: space-between; }
   .contact-hero { min-height: min(62svh, 620px); padding-top: 8rem; }
   .contact-hero-code { display: none; }
+  .contact-hero::after { background: linear-gradient(0deg, #0b0e16 4%, rgba(11,14,22,.76) 42%, rgba(11,14,22,.3) 74%, rgba(11,14,22,.58) 100%); }
+  .museum-wall { opacity: .68; }
   .request-panel { padding: 1.2rem; box-shadow: 7px 7px 0 rgba(247,213,29,.95); }
   .form-grid { grid-template-columns: 1fr; }
   .form-field-wide { grid-column: auto; }
