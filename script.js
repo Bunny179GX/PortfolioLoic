@@ -46,12 +46,12 @@ if (pageTransition) {
       back: { image: 'communication/pubcrousti1.png', label: 'Communication', detail: 'Publicité & composition' }
     },
     {
-      front: { image: 'photos/photo37.jpg', label: 'Photographie', detail: 'Volley & énergie' },
+      front: { image: 'logos/logo5.png', label: 'Logos', detail: 'Identité & symbole', contain: true },
       back: { image: 'creations/cyberpunk.jpg', label: 'Créations', detail: 'Univers & émotion' }
     },
     {
-      front: { image: 'logos/logo5.png', label: 'Logos', detail: 'Identité & symbole', contain: true },
-      back: { image: 'creations/spider man de nuit neige lumi differente.png', label: 'Créations', detail: 'Montage & lumière' }
+      front: { image: 'creations/spider man de nuit neige lumi differente.png', label: 'Créations', detail: 'Montage & lumière' },
+      back: { image: 'photos/photo37.jpg', label: 'Photographie', detail: 'Volley & énergie' }
     }
   ];
   const projectFace = (project, side) => `
@@ -60,7 +60,7 @@ if (pageTransition) {
           <small class="sheet-label"><span>${project.label}</span><b>${project.detail}</b></small>
         </span>`;
   const turningPages = transitionLeaves.map((leaf, index) => `
-      <span class="turning-sheet" style="--sheet:${index}">
+      <span class="turning-sheet${index === transitionLeaves.length - 1 ? ' final-sheet' : ''}" style="--sheet:${index}">
         ${projectFace(leaf.front, 'front')}
         ${projectFace(leaf.back, 'back')}
       </span>`).join('');
@@ -68,12 +68,6 @@ if (pageTransition) {
   pageTransition.innerHTML = `
     <div class="page-flurry" aria-hidden="true">
       ${turningPages}
-    </div>
-    <div class="opening-book" aria-hidden="true">
-      <span class="book-cover"></span>
-      <span class="book-page book-page-left"></span>
-      <span class="book-page book-page-right"></span>
-      <span class="book-spine"></span>
     </div>`;
 }
 
@@ -98,6 +92,6 @@ document.querySelectorAll('.page-link').forEach(link => {
 
     try { sessionStorage.setItem('portfolio-page-turn', 'reveal'); } catch {}
     pageTransition.classList.add('is-turning');
-    window.setTimeout(() => { window.location.href = link.href; }, 2410);
+    window.setTimeout(() => { window.location.href = link.href; }, 1760);
   });
 });
