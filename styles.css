@@ -306,6 +306,15 @@ body[data-gallery="logos"] .showcase-card .gallery-item img { padding: .8rem; ba
 .comparison-card > div { padding: 1rem .5rem 0; }
 .comparison-card h3 { margin: 0 0 .45rem; font-family: var(--display); font-size: 1.7rem; line-height: 1; text-transform: uppercase; text-shadow: 2px 2px 0 var(--pink); }
 .comparison-card p { margin: 0; color: var(--paper-dim); font-size: .78rem; line-height: 1.55; }
+.comparison-grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.jester-comparison { max-width: none; }
+.comparison-card-upcoming { display: flex; flex-direction: column; }
+.upcoming-cover { position: relative; width: 100%; aspect-ratio: 2 / 3; display: grid; place-items: center; overflow: hidden; border: 1px solid rgba(247,213,29,.45); background: radial-gradient(circle at 50% 36%, rgba(171,22,35,.22), transparent 26%), repeating-linear-gradient(135deg, transparent 0 16px, rgba(247,213,29,.035) 16px 17px), #080a10; }
+.upcoming-cover::before { content: ""; position: absolute; inset: 7%; border: 1px solid rgba(241,238,229,.16); box-shadow: inset 0 0 80px rgba(0,0,0,.75); }
+.upcoming-cover::after { content: "?"; position: absolute; right: 7%; bottom: -10%; color: rgba(247,213,29,.07); font-family: var(--display); font-size: clamp(10rem, 24vw, 18rem); line-height: 1; }
+.upcoming-cover > span { position: absolute; left: .65rem; top: .65rem; z-index: 2; padding: .2rem .45rem; color: var(--ink); background: var(--yellow); font-size: .6rem; font-weight: 900; }
+.upcoming-cover strong { position: relative; z-index: 2; color: var(--paper); font-family: var(--display); font-size: clamp(2.2rem, 5vw, 4rem); line-height: .9; text-align: center; text-transform: uppercase; text-shadow: 3px 3px 0 var(--pink); }
+.upcoming-cover i { position: absolute; z-index: 2; width: 4rem; height: 3px; margin-top: 8rem; background: var(--cyan); box-shadow: 0 0 18px rgba(92,225,230,.6); }
 
 .video-grid { max-width: calc(var(--max) + var(--pad)*2); margin: 0 auto; padding: 4rem var(--pad) 8rem; display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 2rem 1.2rem; }
 .video-collection-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.5rem 1.2rem; align-items: start; }

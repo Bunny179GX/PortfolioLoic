@@ -19,8 +19,9 @@ const numberedItems = (folder, numbers, label) => numbers.map(number => ({
   title: label === 'photo' ? photoTitles[number] : `Visuel ${String(number).padStart(2, '0')}`
 }));
 
-const fileItems = (folder, entries) => entries.map(([file, alt, title]) => ({
+const fileItems = (folder, entries) => entries.map(([file, alt, title, thumbnail]) => ({
   src: `${folder}/${file}`,
+  thumbnail: thumbnail ? `${folder}/${thumbnail}` : `${folder}/${file}`,
   alt,
   title: title || alt.split('—')[0].trim()
 }));
@@ -168,6 +169,9 @@ const galleryGroups = {
 };
 
 const featuredCreations = fileItems('creations', [
+  ['Jester-couverture-livre.png', 'Couverture de livre — Jester, maître des ombres', '', 'Jester-couverture-web.jpg'],
+  ['jestercouverturelivreV2.png', 'Couverture de livre — Jester davantage révélé par la lumière', '', 'Jester-lumiere-web.jpg'],
+  ['jestervsherosombrelumiere.png', 'Couverture de livre — Jester dans une atmosphère sombre et menaçante', '', 'Jester-ombre-web.jpg'],
   ['spider man de nuit.png', 'Étude Spider-Man — transformation nocturne de la rue'],
   ['spider man de nuit neige.png', 'Étude Spider-Man — version enneigée avec une foule intégrée'],
   ['spider man de nuit neige lumi differente.png', 'Étude Spider-Man — version enneigée avec une lumière plus dramatique'],
@@ -197,7 +201,7 @@ const createGalleryCard = (item, index, group, position) => {
   button.dataset.galleryIndex = index;
   button.setAttribute('aria-label', `Agrandir : ${item.alt}`);
   const image = document.createElement('img');
-  image.src = item.src;
+  image.src = item.thumbnail || item.src;
   image.alt = item.alt;
   image.loading = index < featuredItems.length + 2 ? 'eager' : 'lazy';
   image.decoding = 'async';
