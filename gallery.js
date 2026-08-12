@@ -169,9 +169,10 @@ const galleryGroups = {
 };
 
 const featuredCreations = fileItems('creations', [
-  ['Jester-couverture-livre.png', 'Couverture de livre — Jester, maître des ombres', '', 'Jester-couverture-web.jpg'],
-  ['jestercouverturelivreV2.png', 'Couverture de livre — Jester davantage révélé par la lumière', '', 'Jester-lumiere-web.jpg'],
-  ['jestervsherosombrelumiere.png', 'Couverture de livre — Jester dans une atmosphère sombre et menaçante', '', 'Jester-ombre-web.jpg'],
+  ['Jester-couverture-web.jpg', 'Couverture de livre — Jester dans une atmosphère diffuse'],
+  ['jestercouverturelivreV2.png', 'Couverture de livre — Jester davantage révélé par la lumière'],
+  ['Jester-ombre-web.jpg', 'Couverture de livre — Jester dans une atmosphère sombre et menaçante'],
+  ['jestercouverturelivreV3.png', 'Couverture de livre — Jester entouré d’ombres profondes'],
   ['spider man de nuit.png', 'Étude Spider-Man — transformation nocturne de la rue'],
   ['spider man de nuit neige.png', 'Étude Spider-Man — version enneigée avec une foule intégrée'],
   ['spider man de nuit neige lumi differente.png', 'Étude Spider-Man — version enneigée avec une lumière plus dramatique'],
