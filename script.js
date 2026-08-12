@@ -30,16 +30,8 @@ document.querySelectorAll('.reveal').forEach(element => observer.observe(element
 
 const pageTransition = document.querySelector('.page-transition');
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-const animationStorageKey = 'portfolio-book-seen-v2';
-let bookAlreadySeen = false;
 
-try {
-  bookAlreadySeen = sessionStorage.getItem(animationStorageKey) === 'true';
-} catch {
-  // La navigation reste fonctionnelle si le stockage du navigateur est indisponible.
-}
-
-if (pageTransition && !bookAlreadySeen) {
+if (pageTransition) {
   const transitionLeaves = [
     {
       front: { image: 'photos/photo44.jpg', label: 'Photographie', detail: 'Sport & mouvement' },
@@ -50,7 +42,7 @@ if (pageTransition && !bookAlreadySeen) {
       back: { image: 'communication/octobre rose.png', label: 'Communication', detail: 'Campagne & impact' }
     },
     {
-      front: { image: 'assets/optimized/peter-rain.jpg', label: 'Créations', detail: 'Lumière & atmosphère' },
+      front: { image: 'creations/peter-pluie-intense.png', label: 'Créations', detail: 'Lumière & atmosphère' },
       back: { image: 'communication/pubcrousti1.png', label: 'Communication', detail: 'Publicité & composition' }
     },
     {
@@ -58,7 +50,7 @@ if (pageTransition && !bookAlreadySeen) {
       back: { image: 'creations/cyberpunk.jpg', label: 'Créations', detail: 'Univers & émotion' }
     },
     {
-      front: { image: 'assets/optimized/spider-light.jpg', label: 'Créations', detail: 'Montage & lumière' },
+      front: { image: 'creations/spider man de nuit neige lumi differente.png', label: 'Créations', detail: 'Montage & lumière' },
       back: { image: 'photos/photo37.jpg', label: 'Photographie', detail: 'Volley & énergie' }
     }
   ];
@@ -102,21 +94,7 @@ document.querySelectorAll('.page-link').forEach(link => {
       return;
     }
 
-    const useQuickTransition = bookAlreadySeen || !pageTransition.querySelector('.page-flurry');
     pageTransition.classList.add('is-turning');
-
-    if (useQuickTransition) {
-      pageTransition.classList.add('is-quick');
-      navigationTimer = window.setTimeout(completeNavigation, 380);
-      return;
-    }
-
-    try {
-      sessionStorage.setItem(animationStorageKey, 'true');
-    } catch {
-      // L’animation fonctionne aussi sans stockage de session.
-    }
-    bookAlreadySeen = true;
     const skipButton = pageTransition.querySelector('.transition-skip');
     if (skipButton) skipButton.hidden = false;
     navigationTimer = window.setTimeout(completeNavigation, 2350);

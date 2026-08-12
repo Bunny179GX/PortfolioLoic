@@ -433,22 +433,7 @@ body[data-gallery="logos"] .showcase-card .gallery-item img { padding: .8rem; ba
   font-weight: 900;
 }
 .transition-skip:hover { background: var(--cyan); }
-.page-transition.is-quick { animation: quick-transition-stage .38s ease both; }
-.page-transition.is-quick::before { animation: quick-transition-backdrop .38s ease both; }
-.page-transition.is-quick::after {
-  content: "";
-  position: absolute;
-  inset: -20%;
-  z-index: 10;
-  background: linear-gradient(110deg, var(--yellow) 0 42%, var(--pink) 42% 46%, var(--ink) 46% 100%);
-  animation: quick-transition-sweep .38s cubic-bezier(.55,.02,.23,1) both;
-}
-.page-transition.is-quick .page-flurry,
-.page-transition.is-quick .transition-skip { display: none; }
 .gallery-hint { margin: .35rem 0 0; color: var(--paper-dim); font-size: .68rem; line-height: 1.45; }
-@keyframes quick-transition-stage { 0% { opacity: 0; } 8%,100% { opacity: 1; } }
-@keyframes quick-transition-backdrop { 0% { opacity: 0; } 100% { opacity: 1; } }
-@keyframes quick-transition-sweep { 0% { transform: translateX(105%) skewX(-7deg); } 100% { transform: translateX(-18%) skewX(-7deg); } }
 
 @media (max-width: 800px) {
   .page-flurry { width: min(146vw, 1160px); }
